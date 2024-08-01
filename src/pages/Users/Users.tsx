@@ -1,42 +1,23 @@
 import { get } from "lodash";
-import { useState } from "react";
 import { Button } from "components";
 import Box from "@mui/material/Box";
 import { toast } from "react-toastify";
 import { useDelete, useGet } from "hooks";
+import { useNavigate } from "react-router-dom";
+import { Container, Switch } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Container, Switch, Tab, Tabs } from "@mui/material";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
 
 const Users = () => {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const lang = searchParams.get("lang") || "uz";
 
   const { data } = useGet({
     queryKey: "User",
     path: "/User/GetAll",
   });
 
-  const renderStabNumber = () => {
-    if (lang === "uz") {
-      return 0;
-    }
-
-    if (lang === "ru") {
-      return 1;
-    }
-
-    if (lang === "en") {
-      return 2;
-    }
-  };
-
   const client = useQueryClient();
-
-  const [stab, setStab] = useState<number>(renderStabNumber() || 0);
 
   const { mutate } = useDelete({
     queryKey: "User",
@@ -97,20 +78,6 @@ const Users = () => {
     },
   ];
 
-  const handleChangeTab = (_: React.SyntheticEvent, newValue: number) => {
-    setStab(newValue);
-
-    if (stab === 0) {
-      setSearchParams({ lang: "ru" });
-    }
-    if (stab === 1) {
-      setSearchParams({ lang: "en" });
-    }
-    if (stab === 2) {
-      setSearchParams({ lang: "uz" });
-    }
-  };
-
   const allData =
     get(data, "content", []).length > 0 &&
     get(data, "content", []).map((el: any) => {
@@ -129,14 +96,9 @@ const Users = () => {
             display: "flex",
             paddingY: "25px",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
           }}
         >
-          <Tabs value={stab} onChange={handleChangeTab}>
-            <Tab label="uz" />
-            <Tab label="ru" />
-            <Tab label="en" />
-          </Tabs>
           <Button
             type="button"
             variant="contained"

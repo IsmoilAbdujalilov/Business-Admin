@@ -44,7 +44,7 @@ const CreateFaqQuestion = () => {
       toast.success("One faq-question has been created", {
         pauseOnHover: false,
       });
-      
+
       setTimeout(() => {
         navigate("/pages/faq-question");
       }, 2000);
@@ -82,12 +82,12 @@ const CreateFaqQuestion = () => {
     e.preventDefault();
 
     const data = {
-      title: {
+      answer: {
         uz,
         ru,
         en,
       },
-      body: {
+      question: {
         uz: bodyUz,
         ru: bodyRu,
         en: bodyEn,
@@ -113,51 +113,51 @@ const CreateFaqQuestion = () => {
             <Input
               required
               fullWidth
-              value={uz}
-              label="Title"
+              value={bodyUz}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setUz(e.target.value)}
+              onChange={(e) => setBodyUz(e.target.value)}
             />
             <Input
               required
               fullWidth
-              value={bodyUz}
-              label="Body"
-              onChange={(e) => setBodyUz(e.target.value)}
+              value={uz}
+              label="Answer"
+              onChange={(e) => setUz(e.target.value)}
             />
           </TabPanel>
           <TabPanel value={stab} index={1}>
             <Input
               required
               fullWidth
-              value={ru}
-              label="Title"
+              value={bodyRu}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setRu(e.target.value)}
+              onChange={(e) => setBodyRu(e.target.value)}
             />
             <Input
               required
               fullWidth
-              label="Body"
-              value={bodyRu}
-              onChange={(e) => setBodyRu(e.target.value)}
+              value={ru}
+              label="Answer"
+              onChange={(e) => setRu(e.target.value)}
             />
           </TabPanel>
           <TabPanel value={stab} index={2}>
             <Input
               required
               fullWidth
-              value={en}
-              label="Title"
+              value={bodyEn}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setEn(e.target.value)}
+              onChange={(e) => setBodyEn(e.target.value)}
             />
             <Input
               required
               fullWidth
-              label="Body"
-              value={bodyEn}
-              onChange={(e) => setBodyEn(e.target.value)}
+              value={en}
+              label="Answer"
+              onChange={(e) => setEn(e.target.value)}
             />
           </TabPanel>
           <Button fullWidth type="submit" variant="contained">

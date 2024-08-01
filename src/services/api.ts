@@ -8,7 +8,7 @@ const api = axios.create({
 const data = JSON.parse(storage.get("data") as string) || "";
 
 api.defaults.timeout = 2500;
-api.defaults.headers.post["Content-Type"] = "application/json";
+// api.defaults.headers.post["Content-Type"] = "application/json";
 // api.defaults.headers.post["Content-Type"] = "multipart/form-data";
 api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 axios.interceptors.request.use(

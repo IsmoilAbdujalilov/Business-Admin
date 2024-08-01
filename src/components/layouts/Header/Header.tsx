@@ -8,12 +8,9 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
   Menu,
   Quiz,
-  AutoStories,
   HomeOutlined,
+  InfoOutlined,
   PersonOutline,
-  CategoryOutlined,
-  NewspaperOutlined,
-  RoomServiceOutlined,
   MessageOutlined,
   FileUploadOutlined,
 } from "@mui/icons-material";
@@ -29,7 +26,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
-import { ContactsOutlined } from "@material-ui/icons";
 
 const drawerWidth = 225;
 
@@ -84,58 +80,27 @@ const sidebarMenuData: sidebarMenuDataTypes[] = [
   },
   {
     id: 2,
-    name: "Category",
-    path: "/pages/category",
-    icon: <CategoryOutlined />,
-  },
-
-  {
-    id: 3,
-    name: "Motto",
-    path: "/pages/motto",
-    icon: <AutoStories />,
-  },
-  {
-    id: 4,
     icon: <Quiz />,
     name: "Faq Question",
     path: "/pages/faq-question",
   },
   {
-    id: 5,
-    name: "Service Percent",
-    icon: <RoomServiceOutlined />,
-    path: "/pages/services-percent",
-  },
-  {
-    id: 6,
+    id: 3,
     name: "Users",
     path: "/pages/users",
     icon: <PersonOutline />,
   },
   {
-    id: 7,
+    id: 4,
     name: "Message",
     path: "/pages/message",
     icon: <MessageOutlined />,
   },
   {
-    id: 8,
-    name: "Contact",
-    path: "/pages/contact",
-    icon: <ContactsOutlined />,
-  },
-  {
-    id: 9,
+    id: 5,
     name: "File",
     path: "/pages/file",
     icon: <FileUploadOutlined />,
-  },
-  {
-    id: 10,
-    name: "News",
-    path: "/pages/news",
-    icon: <NewspaperOutlined />,
   },
 ];
 

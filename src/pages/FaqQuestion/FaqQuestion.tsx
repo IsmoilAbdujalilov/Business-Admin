@@ -58,16 +58,16 @@ const FaqQuestion = () => {
     { field: "id", headerName: "ID", flex: 1 },
     {
       flex: 1,
-      field: "title",
+      field: "answer",
       editable: false,
-      headerName: "Title",
+      headerName: "Answer",
       valueGetter: (row: any) => row[lang],
     },
     {
       flex: 1,
-      field: "body",
+      field: "question",
       editable: false,
-      headerName: "Body",
+      headerName: "Question",
       valueGetter: (row: any) => row[lang],
     },
     {

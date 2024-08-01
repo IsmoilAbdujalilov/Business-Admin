@@ -3,7 +3,7 @@ import { Button } from "components";
 import { toast } from "react-toastify";
 import { useDelete, useGet } from "hooks";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Switch } from "@mui/material";
+import { Container, Box, Avatar } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DeleteOutline, EditOutlined } from "@material-ui/icons";
@@ -36,44 +36,21 @@ const File = () => {
   });
 
   const columns: GridColDef<(typeof allData)[number]>[] = [
-    { field: "id", headerName: "ID", flex: 1 },
     {
+      field: "id",
+      headerName: "File",
       flex: 1,
-      editable: false,
-      field: "senderName",
-      headerName: "Name",
+      renderCell: (row) => {
+        return (
+          <Avatar
+            src={`${
+              import.meta.env.VITE_REACT_API_URL
+            }/File/DownLoadFile/download/${get(row, "id")}`}
+          />
+        );
+      },
     },
-    {
-      flex: 1,
-      editable: false,
-      headerName: "Body",
-      field: "senderEmail",
-    },
-    {
-      flex: 1,
-      editable: false,
-      field: "subject",
-      headerName: "Subject",
-    },
-    {
-      flex: 1,
-      editable: false,
-      field: "messageText",
-      headerName: "Message",
-    },
-    {
-      flex: 1,
-      editable: false,
-      field: "messageText",
-      headerName: "Message",
-    },
-    {
-      flex: 1,
-      field: "isRead",
-      editable: false,
-      headerName: "Read",
-      renderCell: (row) => <Switch checked={get(row, "row.isRead")} />,
-    },
+
     {
       flex: 1,
       field: "edit",
@@ -83,7 +60,7 @@ const File = () => {
       renderCell: (row: any) => (
         <Button
           type="button"
-          onClick={() => navigate(`/pages/message/edit/${get(row, "id")}`)}
+          onClick={() => navigate(`/pages/file/edit/${get(row, "id")}`)}
         >
           {get(row, "row.edit")}
         </Button>
@@ -126,7 +103,7 @@ const File = () => {
           <Button
             type="button"
             variant="contained"
-            onClick={() => navigate("/pages/message/create")}
+            onClick={() => navigate("/pages/file/create")}
           >
             Create
           </Button>

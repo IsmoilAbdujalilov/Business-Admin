@@ -128,7 +128,7 @@ const SignIn = () => {
               autoFocus
               id="email"
               name="email"
-              type="email"
+              // type="email"
               label="Email"
               margin="normal"
               value={authData.email}

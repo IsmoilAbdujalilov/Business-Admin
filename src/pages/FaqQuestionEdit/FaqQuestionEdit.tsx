@@ -1,10 +1,9 @@
-import { useGet, usePut } from "hooks";
+import { useGet, usePost } from "hooks";
 import { toast } from "react-toastify";
 import { Button, Input } from "components";
 import { FormEvent, useEffect, useState } from "react";
 import { Box, Tabs, Typography, Tab } from "@mui/material";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { get } from "lodash";
 
 interface TabPanelProps {
   value: number;
@@ -33,31 +32,17 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 const CreateFaqQuestion = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const { data } = useGet({
-    queryKey: "FaqQuestion",
-    path: `/FaqQuestion/GetById?id=${id}`,
-  });
-
-  useEffect(() => {
-    setUz(get(data, "content.title.uz"));
-    setRu(get(data, "content.title.ru"));
-    setEn(get(data, "content.title.en"));
-    setBodyUz(get(data, "content.body.uz"));
-    setBodyRu(get(data, "content.body.ru"));
-    setBodyEn(get(data, "content.body.en"));
-  }, [data]);
 
   const lang = searchParams.get("lang");
 
-  const { mutate } = usePut({
+  const { mutate } = usePost({
     queryKey: "FaqQuestion",
-    path: "/FaqQuestion/Update",
+    path: "/FaqQuestion/Create",
     onSuccess: () => {
-      toast.success("One faq-question has been created", {
+      toast.success("One faq-question has been edited", {
         pauseOnHover: false,
       });
 
@@ -94,17 +79,32 @@ const CreateFaqQuestion = () => {
     }
   };
 
+  const { data } = useGet({
+    queryKey: "FaqQuestion",
+    path: `/FaqQuestion/GetById?id=${id}`,
+  });
+
+  useEffect(() => {
+    setUz(data.content.answer.uz);
+    setRu(data.content.answer.ru);
+    setEn(data.content.answer.en);
+    setBodyUz(data.content.answer.uz);
+    setBodyRu(data.content.answer.ru);
+    setBodyEn(data.content.answer.en);
+  }, [data]);
+
+  console.log(data);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      id,
-      title: {
+      answer: {
         uz,
         ru,
         en,
       },
-      body: {
+      question: {
         uz: bodyUz,
         ru: bodyRu,
         en: bodyEn,
@@ -130,51 +130,51 @@ const CreateFaqQuestion = () => {
             <Input
               required
               fullWidth
-              value={uz}
-              label="Title"
+              value={bodyUz}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setUz(e.target.value)}
+              onChange={(e) => setBodyUz(e.target.value)}
             />
             <Input
               required
               fullWidth
-              value={bodyUz}
-              label="Body"
-              onChange={(e) => setBodyUz(e.target.value)}
+              value={uz}
+              label="Answer"
+              onChange={(e) => setUz(e.target.value)}
             />
           </TabPanel>
           <TabPanel value={stab} index={1}>
             <Input
               required
               fullWidth
-              value={ru}
-              label="Title"
+              value={bodyRu}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setRu(e.target.value)}
+              onChange={(e) => setBodyRu(e.target.value)}
             />
             <Input
               required
               fullWidth
-              label="Body"
-              value={bodyRu}
-              onChange={(e) => setBodyRu(e.target.value)}
+              value={ru}
+              label="Answer"
+              onChange={(e) => setRu(e.target.value)}
             />
           </TabPanel>
           <TabPanel value={stab} index={2}>
             <Input
               required
               fullWidth
-              value={en}
-              label="Title"
+              value={bodyEn}
+              label="Question"
               sx={{ mb: "10px" }}
-              onChange={(e) => setEn(e.target.value)}
+              onChange={(e) => setBodyEn(e.target.value)}
             />
             <Input
               required
               fullWidth
-              label="Body"
-              value={bodyEn}
-              onChange={(e) => setBodyEn(e.target.value)}
+              value={en}
+              label="Answer"
+              onChange={(e) => setEn(e.target.value)}
             />
           </TabPanel>
           <Button fullWidth type="submit" variant="contained">
