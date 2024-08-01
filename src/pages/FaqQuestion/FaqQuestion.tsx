@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Container, Tab, Tabs, Box } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { DeleteOutline, EditOutlined } from "@material-ui/icons";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 const FaqQuestion = () => {
   const navigate = useNavigate();

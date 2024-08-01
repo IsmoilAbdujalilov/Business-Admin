@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Box, Switch } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DeleteOutline, EditOutlined } from "@material-ui/icons";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 const Message = () => {
   const navigate = useNavigate();

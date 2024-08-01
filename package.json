@@ -10,19 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material-ui/icons": "^4.11.3",
     "@types/react": "^17.0.80",
     "material-icons": "^1.13.12",
     "node": "^20.16.0",
-    "react-dom": "^18.3.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@material-ui/core": "^4.12.4",
-    "@mui/icons-material": "^5.15.20",
-    "@mui/material": "^5.15.20",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.6",
+    "@mui/material": "^5.16.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-data-grid": "^7.9.0",
     "@reduxjs/toolkit": "^2.2.5",
