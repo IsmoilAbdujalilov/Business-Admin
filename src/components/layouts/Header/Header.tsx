@@ -9,6 +9,7 @@ import {
   Menu,
   Quiz,
   HomeOutlined,
+  RoomService,
   InfoOutlined,
   PersonOutline,
   MessageOutlined,
@@ -83,6 +84,12 @@ const sidebarMenuData: sidebarMenuDataTypes[] = [
     icon: <Quiz />,
     name: "Faq Question",
     path: "/pages/faq-question",
+  },
+  {
+    id: 3,
+    name: "Our Services",
+    icon: <RoomService />,
+    path: "/pages/ourservices",
   },
   {
     id: 3,

@@ -13,9 +13,13 @@ const EditUser = lazy(() => import("pages/EditUser"));
 const CreateUser = lazy(() => import("pages/CreateUser"));
 const CreateFile = lazy(() => import("pages/CreateFile"));
 const EditMessage = lazy(() => import("pages/EditMessage"));
+const OurServices = lazy(() => import("pages/OurServices"));
 const FaqQuestion = lazy(() => import("pages/FaqQuestion"));
 const CreateMessage = lazy(() => import("pages/CreateMessage"));
+const OurServicesEdit = lazy(() => import("pages/EditOurServices"));
+const EditOurServices = lazy(() => import("pages/EditOurServices"));
 const FaqQuestionEdit = lazy(() => import("pages/FaqQuestionEdit"));
+const CreateOurServices = lazy(() => import("pages/CreateOurServices"));
 const CreateFaqQuestion = lazy(() => import("pages/CreateFaqQuestion"));
 const AboutBusinessModel = lazy(() => import("pages/AboutBusinessModel"));
 const AboutBusinessModelCreate = lazy(
@@ -40,12 +44,24 @@ const routes = createBrowserRouter([
         path: "/pages/file/create",
       },
       {
+        element: <OurServices />,
+        path: "/pages/ourservices",
+      },
+      {
         element: <EditFile />,
         path: "/pages/file/edit/:id",
       },
       {
+        element: <OurServicesEdit />,
+        path: "/pages/ourservices/edit/:id",
+      },
+      {
         element: <Users />,
         path: "/pages/users",
+      },
+      {
+        element: <EditOurServices />,
+        path: "/pages/ourservices/edit/:id",
       },
       {
         element: <CreateUser />,
@@ -87,6 +103,10 @@ const routes = createBrowserRouter([
       {
         element: <AboutBusinessModelCreate />,
         path: "/pages/business-about-model/create",
+      },
+      {
+        element: <CreateOurServices />,
+        path: "/pages/ourservices/create",
       },
     ],
   },

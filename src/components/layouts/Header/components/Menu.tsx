@@ -41,6 +41,11 @@ const MenuComponent = () => {
 
   const data: dataTypes = JSON.parse(storage.get("data") as string) || {};
 
+  const logoutLogin = () => {
+    mutate(data.id);
+    storage.clear();
+  };
+
   return (
     <Box>
       <Button
@@ -63,7 +68,7 @@ const MenuComponent = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => mutate(data.id)}>Logout</MenuItem>
+        <MenuItem onClick={logoutLogin}>Logout</MenuItem>
       </Menu>
     </Box>
   );
