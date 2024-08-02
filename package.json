@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^17.0.80",
+    "react": "18.3.1",
     "jss-plugin-props-sort": "^10.10.0",
     "jss-plugin-vendor-prefixer": "^10.10.0",
     "material-icons": "^1.13.12",
@@ -27,7 +27,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@tanstack/react-query": "^4.36.1",
     "@types/lodash": "^4.17.5",
-    "react-dom": "^18.3.0",
+    "react-dom": "^18.3.1",
     "@types/react-swipeable-views": "^0.13.5",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
