@@ -1,10 +1,9 @@
-import { useGet, usePost } from "hooks";
+import { usePost } from "hooks";
 import { toast } from "react-toastify";
 import { Button, Input } from "components";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Box, Tabs, Typography, Tab } from "@mui/material";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { get } from "lodash";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface TabPanelProps {
   value: number;
@@ -33,22 +32,21 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 const CreateFaqQuestion = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const lang = searchParams.get("lang");
 
   const { mutate } = usePost({
-    queryKey: "FaqQuestion",
-    path: "/FaqQuestion/Create",
+    queryKey: "OurValues",
+    path: "/OurValues/Create",
     onSuccess: () => {
-      toast.success("One faq-question has been edited", {
+      toast.success("One value has been created", {
         pauseOnHover: false,
       });
 
       setTimeout(() => {
-        navigate("/pages/faq-question");
+        navigate("/pages/ourvalues");
       }, 2000);
     },
     onError: (error) => {
@@ -69,48 +67,27 @@ const CreateFaqQuestion = () => {
   const handleChangeTab = (_: React.SyntheticEvent, newValue: number) => {
     setStab(newValue);
 
-    switch (newValue) {
-      case 0:
-        setSearchParams({ lang: "uz" });
-        break;
-      case 1:
-        setSearchParams({ lang: "ru" });
-        break;
-      case 2:
-        setSearchParams({ lang: "en" });
-        break;
-
-      default:
-        setSearchParams({ lang: "uz" });
+    if (newValue === 0) {
+      setSearchParams({ lang: "uz" });
+    }
+    if (newValue === 1) {
+      setSearchParams({ lang: "ru" });
+    }
+    if (newValue === 2) {
+      setSearchParams({ lang: "en" });
     }
   };
-
-  const { data } = useGet({
-    queryKey: "FaqQuestion",
-    path: `/FaqQuestion/GetById?id=${id}`,
-  });
-
-  useEffect(() => {
-    setUz(get(data, "content.question.uz", ""));
-    setRu(get(data, "content.question.ru", ""));
-    setEn(get(data, "content.question.en", ""));
-    setBodyUz(get(data, "content.answer.uz", ""));
-    setBodyRu(get(data, "content.answer.ru", ""));
-    setBodyEn(get(data, "content.answer.en", ""));
-  }, [data]);
-
-  console.log(data);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      answer: {
+      aboutValue: {
         uz,
         ru,
         en,
       },
-      question: {
+      valueName: {
         uz: bodyUz,
         ru: bodyRu,
         en: bodyEn,
@@ -137,7 +114,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={bodyUz}
-              label="Question"
+              label="Value Name"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyUz(e.target.value)}
             />
@@ -145,7 +122,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={uz}
-              label="Answer"
+              label="About Value"
               onChange={(e) => setUz(e.target.value)}
             />
           </TabPanel>
@@ -153,8 +130,8 @@ const CreateFaqQuestion = () => {
             <Input
               required
               fullWidth
+              label="Value Name"
               value={bodyRu}
-              label="Question"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyRu(e.target.value)}
             />
@@ -162,7 +139,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={ru}
-              label="Answer"
+              label="About Value"
               onChange={(e) => setRu(e.target.value)}
             />
           </TabPanel>
@@ -171,7 +148,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={bodyEn}
-              label="Question"
+              label="Value Name"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyEn(e.target.value)}
             />
@@ -179,7 +156,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={en}
-              label="Answer"
+              label="About Value"
               onChange={(e) => setEn(e.target.value)}
             />
           </TabPanel>

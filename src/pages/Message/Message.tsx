@@ -10,12 +10,13 @@ import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 const Message = () => {
   const navigate = useNavigate();
-  // a
 
   const { data } = useGet({
     queryKey: "Message",
     path: "/Message/GetAll",
   });
+
+  console.log(data);
 
   const client = useQueryClient();
 
@@ -41,26 +42,26 @@ const Message = () => {
     {
       flex: 1,
       editable: false,
-      field: "senderName",
-      headerName: "Name",
+      field: "senderFirstName",
+      headerName: "First name",
     },
     {
       flex: 1,
       editable: false,
-      headerName: "Body",
+      field: "senderLastName",
+      headerName: "Last Name",
+    },
+    {
+      flex: 1,
+      editable: false,
       field: "senderEmail",
+      headerName: "Sender Email",
     },
     {
       flex: 1,
       editable: false,
-      field: "subject",
-      headerName: "Subject",
-    },
-    {
-      flex: 1,
-      editable: false,
-      field: "messageText",
-      headerName: "Message",
+      field: "phoneNumber",
+      headerName: "Phone number",
     },
     {
       flex: 1,

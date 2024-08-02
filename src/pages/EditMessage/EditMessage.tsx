@@ -1,25 +1,27 @@
-import { get } from "lodash";
-import { useGet, usePut } from "hooks";
+import { useGet, usePost, usePut } from "hooks";
 import { toast } from "react-toastify";
 import { Button, Input } from "components";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, FormControlLabel, Switch } from "@mui/material";
+import { get } from "lodash";
 
-const CreateMessage = () => {
+const EditMessage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [subject, setSubject] = useState<string>("");
-  const [isRead, setIsRead] = useState<boolean>(false);
-  const [senderName, setSenderName] = useState<string>("");
+
+  const [senderFirstName, setsenderFirstName] = useState<string>("");
+  const [senderLastName, setsenderLastName] = useState<string>("");
   const [senderEmail, setSenderEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [messageText, setMessageText] = useState<string>("");
+  const [isRead, setIsRead] = useState<boolean>(false);
 
   const { mutate } = usePut({
     queryKey: "Message",
     path: "/Message/Update",
     onSuccess: () => {
-      toast.success("One message has been updated", {
+      toast.success("One message has been created", {
         pauseOnHover: false,
       });
 
@@ -39,12 +41,15 @@ const CreateMessage = () => {
     path: `/Message/GetBy?id=${id}`,
   });
 
+  console.log(data);
+
   useEffect(() => {
-    setIsRead(get(data, "content.isRead"));
-    setSubject(get(data, "content.subject"));
-    setSenderName(get(data, "content.senderName"));
-    setSenderEmail(get(data, "content.senderEmail"));
-    setMessageText(get(data, "content.messageText"));
+    setsenderFirstName(get(data, "content.senderFirstName", ""));
+    setsenderLastName(get(data, "content.senderLastName", ""));
+    setSenderEmail(get(data, "content.senderEmail", ""));
+    setPhoneNumber(get(data, "content.phoneNumber", ""));
+    setMessageText(get(data, "content.messageText", ""));
+    setIsRead(get(data, "content.isRead", true));
   }, [data]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -52,9 +57,10 @@ const CreateMessage = () => {
 
     const data = {
       id,
-      senderName,
+      senderFirstName,
+      senderLastName,
       senderEmail,
-      subject,
+      phoneNumber,
       messageText,
       isRead,
     };
@@ -69,10 +75,18 @@ const CreateMessage = () => {
           <Input
             required
             fullWidth
-            label="Name"
-            value={senderName}
+            label="First Name"
             sx={{ mb: "10px" }}
-            onChange={(e) => setSenderName(e.target.value)}
+            value={senderFirstName}
+            onChange={(e) => setsenderFirstName(e.target.value)}
+          />
+          <Input
+            required
+            fullWidth
+            label="Last Name"
+            sx={{ mb: "10px" }}
+            value={senderLastName}
+            onChange={(e) => setsenderLastName(e.target.value)}
           />
           <Input
             required
@@ -86,10 +100,11 @@ const CreateMessage = () => {
           <Input
             required
             fullWidth
-            label="Subject"
-            value={subject}
+            type="number"
+            value={phoneNumber}
             sx={{ mb: "10px" }}
-            onChange={(e) => setSubject(e.target.value)}
+            label="Phone Number"
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <Input
             required
@@ -119,4 +134,4 @@ const CreateMessage = () => {
   );
 };
 
-export default CreateMessage;
+export default EditMessage;

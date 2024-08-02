@@ -9,23 +9,6 @@ const CreateCategory = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState<null | File>(null);
 
-  //   const { mutate } = usePost({
-  //     queryKey: "File",
-  //     path: "/File/UploadFile",
-  //     onSuccess: () => {
-  //       toast.success("One file has been created", { pauseOnHover: false });
-
-  //       setTimeout(() => {
-  //         navigate("/pages/file");
-  //       }, 2000);
-  //     },
-  //     onError: (error) => {
-  //       if (error instanceof Error) {
-  //         toast.error(error.message, { pauseOnHover: false });
-  //       }
-  //     },
-  //   });
-
   const uploadFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);

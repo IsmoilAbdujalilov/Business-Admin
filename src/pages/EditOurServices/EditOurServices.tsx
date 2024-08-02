@@ -1,9 +1,10 @@
-import { usePost } from "hooks";
+import { useGet, usePost, usePut } from "hooks";
 import { toast } from "react-toastify";
 import { Button, Input } from "components";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Box, Tabs, Typography, Tab } from "@mui/material";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { get } from "lodash";
 
 interface TabPanelProps {
   value: number;
@@ -32,21 +33,22 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 const CreateFaqQuestion = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const lang = searchParams.get("lang");
 
-  const { mutate } = usePost({
-    queryKey: "FaqQuestion",
-    path: "/FaqQuestion/Create",
+  const { mutate } = usePut({
+    queryKey: "OurServices",
+    path: "/OurServices/Update",
     onSuccess: () => {
-      toast.success("One faq-question has been created", {
+      toast.success("One OurServices has been update", {
         pauseOnHover: false,
       });
 
       setTimeout(() => {
-        navigate("/pages/faq-question");
+        navigate("/pages/ourservices");
       }, 2000);
     },
     onError: (error) => {
@@ -78,16 +80,31 @@ const CreateFaqQuestion = () => {
     }
   };
 
+  const { data } = useGet({
+    queryKey: "OurServices",
+    path: `http://45.10.162.54:8080/OurServices/GetById?id=${id}`,
+  });
+
+  useEffect(() => {
+    setUz(get(data, "content.serviceName.uz", ""));
+    setRu(get(data, "content.serviceName.ru", ""));
+    setEn(get(data, "content.serviceName.en", ""));
+    setBodyUz(get(data, "content.aboutService.uz", ""));
+    setBodyRu(get(data, "content.aboutService.ru", ""));
+    setBodyEn(get(data, "content.aboutService.en", ""));
+  }, [data]);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
-      answer: {
+      id,
+      aboutService: {
         uz,
         ru,
         en,
       },
-      question: {
+      serviceName: {
         uz: bodyUz,
         ru: bodyRu,
         en: bodyEn,
@@ -114,7 +131,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={bodyUz}
-              label="Question"
+              label="Service"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyUz(e.target.value)}
             />
@@ -122,7 +139,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={uz}
-              label="Answer"
+              label="AboutService"
               onChange={(e) => setUz(e.target.value)}
             />
           </TabPanel>
@@ -130,8 +147,8 @@ const CreateFaqQuestion = () => {
             <Input
               required
               fullWidth
+              label="Service"
               value={bodyRu}
-              label="Question"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyRu(e.target.value)}
             />
@@ -139,7 +156,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={ru}
-              label="Answer"
+              label="AboutService"
               onChange={(e) => setRu(e.target.value)}
             />
           </TabPanel>
@@ -148,7 +165,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={bodyEn}
-              label="Question"
+              label="Service"
               sx={{ mb: "10px" }}
               onChange={(e) => setBodyEn(e.target.value)}
             />
@@ -156,7 +173,7 @@ const CreateFaqQuestion = () => {
               required
               fullWidth
               value={en}
-              label="Answer"
+              label="AboutService"
               onChange={(e) => setEn(e.target.value)}
             />
           </TabPanel>

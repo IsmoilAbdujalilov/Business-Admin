@@ -8,9 +8,10 @@ import { Box, FormControlLabel, Switch } from "@mui/material";
 const CreateMessage = () => {
   const navigate = useNavigate();
 
-  const [senderName, setSenderName] = useState<string>("");
+  const [senderFirstName, setsenderFirstName] = useState<string>("");
+  const [senderLastName, setsenderLastName] = useState<string>("");
   const [senderEmail, setSenderEmail] = useState<string>("");
-  const [subject, setSubject] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [messageText, setMessageText] = useState<string>("");
   const [isRead, setIsRead] = useState<boolean>(false);
 
@@ -37,9 +38,10 @@ const CreateMessage = () => {
     e.preventDefault();
 
     const data = {
-      senderName,
+      senderFirstName,
+      senderLastName,
       senderEmail,
-      subject,
+      phoneNumber,
       messageText,
       isRead,
     };
@@ -54,10 +56,18 @@ const CreateMessage = () => {
           <Input
             required
             fullWidth
-            label="Name"
-            value={senderName}
+            label="First Name"
             sx={{ mb: "10px" }}
-            onChange={(e) => setSenderName(e.target.value)}
+            value={senderFirstName}
+            onChange={(e) => setsenderFirstName(e.target.value)}
+          />
+          <Input
+            required
+            fullWidth
+            label="Last Name"
+            sx={{ mb: "10px" }}
+            value={senderLastName}
+            onChange={(e) => setsenderLastName(e.target.value)}
           />
           <Input
             required
@@ -71,10 +81,11 @@ const CreateMessage = () => {
           <Input
             required
             fullWidth
-            label="Subject"
-            value={subject}
+            type="number"
+            value={phoneNumber}
             sx={{ mb: "10px" }}
-            onChange={(e) => setSubject(e.target.value)}
+            label="Phone Number"
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <Input
             required

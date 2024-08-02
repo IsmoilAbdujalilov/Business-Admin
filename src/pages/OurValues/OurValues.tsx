@@ -15,8 +15,8 @@ const FaqQuestion = () => {
   const lang = searchParams.get("lang") || "uz";
 
   const { data } = useGet({
-    queryKey: "OurServices",
-    path: "/OurServices/GetAll",
+    queryKey: "OurValues",
+    path: "/OurValues/GetAll",
   });
 
   const renderStabNumber = () => {
@@ -38,13 +38,13 @@ const FaqQuestion = () => {
   const [stab, setStab] = useState<number>(renderStabNumber() || 0);
 
   const { mutate } = useDelete({
-    queryKey: "OurServices",
-    path: "/OurServices/Delete",
+    queryKey: "OurValues",
+    path: "/OurValues/Delete",
     onSuccess: () => {
       toast.success("1 item deleted", { pauseOnHover: false });
 
       setTimeout(() => {
-        client.invalidateQueries({ queryKey: ["OurServices"] });
+        client.invalidateQueries({ queryKey: ["OurValues"] });
       }, 1000);
     },
     onError: (error) => {
@@ -59,15 +59,15 @@ const FaqQuestion = () => {
     {
       flex: 1,
       editable: false,
-      field: "serviceName",
-      headerName: "Service Name",
+      field: "valueName",
+      headerName: "Value Name",
       valueGetter: (row: any) => row[lang],
     },
     {
       flex: 1,
       editable: false,
-      field: "aboutService",
-      headerName: "About service",
+      field: "aboutValue",
+      headerName: "About value",
       valueGetter: (row: any) => row[lang],
     },
     {
@@ -79,7 +79,7 @@ const FaqQuestion = () => {
       renderCell: (row: any) => (
         <Button
           type="button"
-          onClick={() => navigate(`/pages/ourservices/edit/${get(row, "id")}`)}
+          onClick={() => navigate(`/pages/ourvalues/edit/${get(row, "id")}`)}
         >
           {get(row, "row.edit")}
         </Button>
@@ -101,14 +101,14 @@ const FaqQuestion = () => {
   const handleChangeTab = (_: React.SyntheticEvent, newValue: number) => {
     setStab(newValue);
 
-    if (newValue === 0) {
-      setSearchParams({ lang: "uz" });
-    }
-    if (newValue === 1) {
+    if (stab === 0) {
       setSearchParams({ lang: "ru" });
     }
-    if (newValue === 2) {
+    if (stab === 1) {
       setSearchParams({ lang: "en" });
+    }
+    if (stab === 2) {
+      setSearchParams({ lang: "uz" });
     }
   };
 
@@ -141,7 +141,7 @@ const FaqQuestion = () => {
           <Button
             type="button"
             variant="contained"
-            onClick={() => navigate("/pages/ourservices/create")}
+            onClick={() => navigate("/pages/ourvalues/create")}
           >
             Create
           </Button>

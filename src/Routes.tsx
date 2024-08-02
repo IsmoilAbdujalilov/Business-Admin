@@ -10,15 +10,21 @@ const Users = lazy(() => import("pages/Users"));
 const Message = lazy(() => import("pages/Message"));
 const EditFile = lazy(() => import("pages/EditFile"));
 const EditUser = lazy(() => import("pages/EditUser"));
+const OurValues = lazy(() => import("pages/OurValues"));
 const CreateUser = lazy(() => import("pages/CreateUser"));
 const CreateFile = lazy(() => import("pages/CreateFile"));
+const TeamMember = lazy(() => import("pages/TeamMember"));
 const EditMessage = lazy(() => import("pages/EditMessage"));
 const OurServices = lazy(() => import("pages/OurServices"));
 const FaqQuestion = lazy(() => import("pages/FaqQuestion"));
+const OurValuesEdit = lazy(() => import("pages/OurValuesEdit"));
 const CreateMessage = lazy(() => import("pages/CreateMessage"));
+const TeamMemberEdit = lazy(() => import("pages/TeamMemberEdit"));
+const OurValuesCreate = lazy(() => import("pages/OurValuesCreate"));
 const OurServicesEdit = lazy(() => import("pages/EditOurServices"));
 const EditOurServices = lazy(() => import("pages/EditOurServices"));
 const FaqQuestionEdit = lazy(() => import("pages/FaqQuestionEdit"));
+const CreateTeamMember = lazy(() => import("pages/CreateTeamMember"));
 const CreateOurServices = lazy(() => import("pages/CreateOurServices"));
 const CreateFaqQuestion = lazy(() => import("pages/CreateFaqQuestion"));
 const AboutBusinessModel = lazy(() => import("pages/AboutBusinessModel"));
@@ -44,8 +50,32 @@ const routes = createBrowserRouter([
         path: "/pages/file/create",
       },
       {
+        element: <OurValues />,
+        path: "/pages/ourvalues",
+      },
+      {
+        element: <OurValuesEdit />,
+        path: "/pages/ourvalues/edit/:id",
+      },
+      {
+        element: <TeamMember />,
+        path: "/pages/team-member",
+      },
+      {
+        element: <CreateTeamMember />,
+        path: "/pages/team-member/create",
+      },
+      {
+        element: <TeamMemberEdit />,
+        path: "/pages/team-member/edit/:id",
+      },
+      {
         element: <OurServices />,
         path: "/pages/ourservices",
+      },
+      {
+        element: <OurValuesCreate />,
+        path: "/pages/ourvalues/create",
       },
       {
         element: <EditFile />,

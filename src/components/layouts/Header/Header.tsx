@@ -14,6 +14,8 @@ import {
   PersonOutline,
   MessageOutlined,
   FileUploadOutlined,
+  OutlinedFlagRounded,
+  AccessibilityNewOutlined,
 } from "@mui/icons-material";
 import {
   List,
@@ -108,6 +110,18 @@ const sidebarMenuData: sidebarMenuDataTypes[] = [
     name: "File",
     path: "/pages/file",
     icon: <FileUploadOutlined />,
+  },
+  {
+    id: 6,
+    name: "Our Values",
+    path: "/pages/ourvalues",
+    icon: <OutlinedFlagRounded />,
+  },
+  {
+    id: 7,
+    name: "Team",
+    path: "/pages/team-member",
+    icon: <AccessibilityNewOutlined />,
   },
 ];
 

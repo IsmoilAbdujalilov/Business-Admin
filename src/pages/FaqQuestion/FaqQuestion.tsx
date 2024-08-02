@@ -101,14 +101,14 @@ const FaqQuestion = () => {
   const handleChangeTab = (_: React.SyntheticEvent, newValue: number) => {
     setStab(newValue);
 
-    if (stab === 0) {
+    if (newValue === 0) {
+      setSearchParams({ lang: "uz" });
+    }
+    if (newValue === 1) {
       setSearchParams({ lang: "ru" });
     }
-    if (stab === 1) {
+    if (newValue === 2) {
       setSearchParams({ lang: "en" });
-    }
-    if (stab === 2) {
-      setSearchParams({ lang: "uz" });
     }
   };
 

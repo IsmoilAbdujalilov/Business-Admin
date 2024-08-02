@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useDelete, useGet } from "hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Container, Tab, Tabs, Box } from "@mui/material";
+import { Container, Tab, Tabs, Box, Avatar } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
@@ -15,9 +15,11 @@ const FaqQuestion = () => {
   const lang = searchParams.get("lang") || "uz";
 
   const { data } = useGet({
-    queryKey: "OurServices",
-    path: "/OurServices/GetAll",
+    queryKey: "TeamMember",
+    path: "/TeamMember/GetAll",
   });
+
+  console.log(data);
 
   const renderStabNumber = () => {
     if (lang === "uz") {
@@ -38,13 +40,13 @@ const FaqQuestion = () => {
   const [stab, setStab] = useState<number>(renderStabNumber() || 0);
 
   const { mutate } = useDelete({
-    queryKey: "OurServices",
-    path: "/OurServices/Delete",
+    queryKey: "TeamMember",
+    path: "/TeamMember/Delete",
     onSuccess: () => {
       toast.success("1 item deleted", { pauseOnHover: false });
 
       setTimeout(() => {
-        client.invalidateQueries({ queryKey: ["OurServices"] });
+        client.invalidateQueries({ queryKey: ["TeamMember"] });
       }, 1000);
     },
     onError: (error) => {
@@ -58,16 +60,30 @@ const FaqQuestion = () => {
     { field: "id", headerName: "ID", flex: 1 },
     {
       flex: 1,
-      editable: false,
-      field: "serviceName",
-      headerName: "Service Name",
-      valueGetter: (row: any) => row[lang],
+      field: "imageId",
+      headerName: "Image",
+      renderCell: ({ row }) => {
+        return (
+          <Avatar
+            src={`${
+              import.meta.env.VITE_REACT_API_URL
+            }/File/DownLoadFile/download/${get(row, "imageId")}`}
+          />
+        );
+      },
     },
     {
       flex: 1,
+      field: "fullName",
       editable: false,
-      field: "aboutService",
-      headerName: "About service",
+      headerName: "Full Name",
+      valueGetter: (row: any) => row,
+    },
+    {
+      flex: 1,
+      field: "role",
+      editable: false,
+      headerName: "Role",
       valueGetter: (row: any) => row[lang],
     },
     {
@@ -79,7 +95,7 @@ const FaqQuestion = () => {
       renderCell: (row: any) => (
         <Button
           type="button"
-          onClick={() => navigate(`/pages/ourservices/edit/${get(row, "id")}`)}
+          onClick={() => navigate(`/pages/team-member/edit/${get(row, "id")}`)}
         >
           {get(row, "row.edit")}
         </Button>
@@ -141,7 +157,7 @@ const FaqQuestion = () => {
           <Button
             type="button"
             variant="contained"
-            onClick={() => navigate("/pages/ourservices/create")}
+            onClick={() => navigate("/pages/team-member/create")}
           >
             Create
           </Button>
